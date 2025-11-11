@@ -61,7 +61,7 @@ const App = () => {
     sched = useAsync(),
     contrib = useAsync();
 
-  // 🔹 Apply preset pattern for quick testing
+  // Apply preset pattern
   const applyPreset = (type, setter) => {
     const n = 24;
     let vals = [];
@@ -81,7 +81,7 @@ const App = () => {
     setter(vals);
   };
 
-  // 🔹 Convert textarea input to number array safely
+  // Parse textarea input
   const parseArray = (val, setter) => {
     const arr = val
       .split(",")
@@ -91,7 +91,15 @@ const App = () => {
   };
 
   return (
-    <div className="wrap">
+    <div className="wrap fade-in">
+
+      {/* ✅ Back to Home Button */}
+      <div className="btn-back-container">
+        <a href="https://energy-verse-portal.netlify.app/?feature=9" className="btn-back-scroll">
+          ← Back to Home
+        </a>
+      </div>
+
       {/* Header */}
       <div className="title">
         <div>
@@ -175,8 +183,7 @@ const App = () => {
           <div className="card">
             <h3>Profiles Input (24 hours)</h3>
 
-            {[
-              { key: "Load", arr: load, set: setLoad },
+            {[{ key: "Load", arr: load, set: setLoad },
               { key: "Solar", arr: solar, set: setSolar },
               { key: "Wind", arr: wind, set: setWind },
               { key: "Price", arr: prices, set: setPrices },
@@ -225,8 +232,7 @@ const App = () => {
             )}
             {sim.data && (
               <div className="muted" style={{ marginTop: 8 }}>
-                Cost: ₹{sim.data.energy_balance_cost} | Unmet: {sim.data.unmet_load_kWh} kWh | Curtail:{" "}
-                {sim.data.curtailment_kWh} kWh
+                Cost: ₹{sim.data.energy_balance_cost} | Unmet: {sim.data.unmet_load_kWh} kWh | Curtail: {sim.data.curtailment_kWh} kWh
               </div>
             )}
           </div>
@@ -254,22 +260,10 @@ const App = () => {
             {contrib.data ? (
               <table>
                 <tbody>
-                  <tr>
-                    <td>Solar</td>
-                    <td>{contrib.data.contribution.solar_kWh}</td>
-                  </tr>
-                  <tr>
-                    <td>Wind</td>
-                    <td>{contrib.data.contribution.wind_kWh}</td>
-                  </tr>
-                  <tr>
-                    <td>Battery</td>
-                    <td>{contrib.data.contribution.battery_kWh}</td>
-                  </tr>
-                  <tr>
-                    <td>Grid</td>
-                    <td>{contrib.data.contribution.grid_kWh}</td>
-                  </tr>
+                  <tr><td>Solar</td><td>{contrib.data.contribution.solar_kWh}</td></tr>
+                  <tr><td>Wind</td><td>{contrib.data.contribution.wind_kWh}</td></tr>
+                  <tr><td>Battery</td><td>{contrib.data.contribution.battery_kWh}</td></tr>
+                  <tr><td>Grid</td><td>{contrib.data.contribution.grid_kWh}</td></tr>
                 </tbody>
               </table>
             ) : (
